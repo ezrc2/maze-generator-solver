@@ -5,6 +5,7 @@
 #include "cinder/gl/gl.h"
 #include "cinder/app/AppBase.h"
 #include "canvas.h"
+#include "core/maze_solver.h"
 #include "core/driver.h"
 
 namespace mazesolver {
@@ -19,31 +20,40 @@ class MazeSolverApp : public ci::app::App {
   MazeSolverApp();
 
   /**
-   * Draws the grey background and the canvas
+   * Draws the grey background and the maze canvas
    */
   void draw() override;
 
   /**
-   * Updates the simulation after each frame
+   * Updates the solver after each frame
    */
   void update() override;
 
-  /**
-   * Responds to key presses from the user
-   *
-   * @param event The key that was pressed
-   */
-  void keyDown(ci::app::KeyEvent event) override;
+  const std::vector<std::vector<size_t>> kMazeCells =
+      {{1, 0, 1, 1, 1, 1, 0, 0, 0, 0 },
+       {1, 0, 1, 0, 1, 0, 0, 1, 1, 1 },
+       {1, 1, 1, 0, 1, 1, 1, 1, 0, 1 },
+       {0, 0, 0, 0, 1, 0, 0, 0, 0, 1 },
+       {1, 1, 1, 0, 1, 1, 1, 1, 0, 1 },
+       {1, 0, 1, 1, 1, 0, 0, 1, 0, 1 },
+       {1, 0, 1, 0, 0, 0, 1, 0, 0, 0 },
+       {0, 0, 1, 1, 1, 0, 1, 1, 1, 1 },
+       {1, 1, 1, 0, 1, 1, 1, 1, 0, 0 }};
+
+  const glm::vec2 kStartCell = {0, 0};
+  const glm::vec2 kEndCell = {7, 9};
 
  private:
-  const int kWindowWidth = 1500;
-  const int kWindowHeight = 950;
+  const int kWindowWidth = 1000;
+  const int kWindowHeight = 900;
   const int kXMargin = 50;
   const int kYMargin = 50;
 
+  MazeSolver maze_solver_;
   Driver driver_;
   Canvas canvas_;
 
+  std::string message_;
   const ci::Color kBackgroundColor = "gray";
   const ci::Color kTextColor = "black";
   const ci::Font kFont = ci::Font("Arial", 24.0f);
