@@ -1,21 +1,14 @@
 #pragma once
 
 #include <vector>
+#include <glm/vec2.hpp>
+#include "point.h"
 
-class Cell {
- public:
-  Cell(size_t g_cost, size_t h_cost, const std::vector<Cell>& neighbors);
+struct Cell {
 
-  Cell GetNextCell() const;
-
-  size_t GetHCost() const;
-
-  size_t GetFCost() const;
-
- private:
-
-  size_t g_cost_; // Distance from start cell
-  size_t h_cost_; // Distance from end cell
-  std::vector<Cell> neighbors_;
+  glm::vec2 location;
+  float g_cost; // Distance from start cell
+  float h_cost; // Distance from end cell
+  float f_cost = g_cost + h_cost;
 
 };
