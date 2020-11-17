@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cinder/gl/gl.h"
+#include "core/cell.h"
 
 namespace mazesolver {
 
@@ -26,17 +27,18 @@ class Canvas {
 
   void DrawMaze(const std::vector<std::vector<size_t>>& maze_cells);
 
-  void DrawPath();
+  void DrawPath(const std::vector<Cell>& path);
+
  private:
 
   glm::vec2 top_left_corner_;
   size_t canvas_width_;
   size_t canvas_height_;
 
-  const size_t kCellSize = 20;
+  const float kCellSize = 50;
   const ci::Color kPathColor = ci::Color("blue");
-  const ci::Color kBlankColor = ci::Color("White");
-  const ci::Color kObstacleColor = ci::Color("Black");
+  const ci::Color kBlankColor = ci::Color("white");
+  const ci::Color kObstacleColor = ci::Color("black");
 
 };
 
