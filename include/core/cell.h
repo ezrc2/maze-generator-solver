@@ -1,8 +1,21 @@
-//
-// Created by ezche on 11/16/2020.
-//
+#pragma once
 
-#ifndef NAIVE_BAYES_INCLUDE_CORE_CELL_H_
-#define NAIVE_BAYES_INCLUDE_CORE_CELL_H_
+#include <vector>
 
-#endif //NAIVE_BAYES_INCLUDE_CORE_CELL_H_
+class Cell {
+ public:
+  Cell(size_t g_cost, size_t h_cost, const std::vector<Cell>& neighbors);
+
+  Cell GetNextCell() const;
+
+  size_t GetHCost() const;
+
+  size_t GetFCost() const;
+
+ private:
+
+  size_t g_cost_; // Distance from start cell
+  size_t h_cost_; // Distance from end cell
+  std::vector<Cell> neighbors_;
+
+};
