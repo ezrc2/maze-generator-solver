@@ -1,0 +1,8 @@
+//
+// Created by ezche on 11/16/2020.
+//
+
+#ifndef NAIVE_BAYES_INCLUDE_CORE_CELL_H_
+#define NAIVE_BAYES_INCLUDE_CORE_CELL_H_
+
+#endif //NAIVE_BAYES_INCLUDE_CORE_CELL_H_
