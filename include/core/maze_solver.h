@@ -23,6 +23,7 @@ class MazeSolver {
   std::vector<Cell> GetNeighbors(const Cell& cell);
 
   bool is_maze_solved_;
+  bool is_unsolvable_;
   size_t maze_width_;
   size_t maze_height_;
 
