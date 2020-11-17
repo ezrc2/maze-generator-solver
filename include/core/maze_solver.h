@@ -14,7 +14,7 @@ class MazeSolver {
 
   bool IsMazeSolved();
 
-  Cell GetCurrentCell() const;
+  bool IsMazeUnsolvable();
 
   std::vector<Cell> GetClosedCells() const;
 
@@ -22,8 +22,8 @@ class MazeSolver {
 
   std::vector<Cell> GetNeighbors(const Cell& cell);
 
-  bool is_maze_solved_;
-  bool is_unsolvable_;
+  bool is_maze_solved_ = false;
+  bool is_unsolvable_ = false;
   size_t maze_width_;
   size_t maze_height_;
 
