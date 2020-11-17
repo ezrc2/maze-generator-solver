@@ -24,16 +24,19 @@ class Canvas {
   Canvas(const glm::vec2& top_left_corner, size_t canvas_width,
          size_t canvas_height);
 
+  void DrawMaze(const std::vector<std::vector<size_t>>& maze_cells);
+
+  void DrawPath();
  private:
 
   glm::vec2 top_left_corner_;
   size_t canvas_width_;
   size_t canvas_height_;
 
-  const ci::Color kCanvasColor = "black";
-  const ci::Color kTextColor = "black";
-  const ci::Font kTextFont = ci::Font("Arial", 24.0f);
-  const ci::Font kTitleFont = ci::Font("Arial", 28.0f);
+  const size_t kCellSize = 20;
+  const ci::Color kPathColor = ci::Color("blue");
+  const ci::Color kBlankColor = ci::Color("White");
+  const ci::Color kObstacleColor = ci::Color("Black");
 
 };
 
