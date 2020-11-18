@@ -24,7 +24,7 @@ void MazeSolver::UpdateSearchLoop() {
 
   current_cell_ = FindLowestFCost();
 
-  // Remove from open cells
+  // Remove from open and move to closed
   for (size_t i = 0; i < open_cells_.size(); i++) {
     if (open_cells_[i].location == current_cell_.location) {
       open_cells_.erase(open_cells_.begin() + i);
@@ -35,13 +35,30 @@ void MazeSolver::UpdateSearchLoop() {
 
   if (current_cell_.location == end_location_) {
     is_maze_solved_ = true;
+    if (solution_.empty()) {
+      Cell cell = closed_cells_.back();
+      while (cell.previous->location != start_location_) {
+        solution_.push_back(cell);
+        cell.location = cell.previous->location;
+        cell.g_cost = cell.previous->g_cost;
+        cell.h_cost = cell.previous->h_cost;
+        cell.f_cost = cell.previous->f_cost;
+        cell.previous = cell.previous->previous;
+      }
+    }
     return;
   }
 
-  for (const Cell& neighbor : GetNeighbors(current_cell_)) {
+  for (Cell& neighbor : GetNeighbors(current_cell_)) {
     // If neighbor cell is already walked
     if (DoesContainCell(closed_cells_, neighbor)) {
       continue;
+    }
+    float new_cost = current_cell_.g_cost
+        + glm::distance(current_cell_.location, neighbor.location);
+    if (new_cost < neighbor.f_cost) {
+      neighbor.f_cost = new_cost;
+      neighbor.previous = &current_cell_;
     }
     if (!DoesContainCell(open_cells_, neighbor)) {
       open_cells_.push_back(neighbor);
