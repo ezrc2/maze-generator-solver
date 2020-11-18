@@ -22,6 +22,8 @@ class MazeSolver {
 
   std::vector<Cell> GetNeighbors(const Cell& cell);
 
+  bool DoesContainCell(const std::vector<Cell>& cell_list, const Cell& to_find);
+
   bool is_maze_solved_ = false;
   bool is_unsolvable_ = false;
   size_t maze_width_;

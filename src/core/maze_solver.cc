@@ -67,7 +67,7 @@ std::vector<Cell> MazeSolver::GetNeighbors(const Cell& cell) {
   std::vector<Cell> neighbors;
   for (float x = -1; x <= 1; x++) {
     for (float y = -1; y <= 1; y++) {
-      if (x == y) {
+      if (x == 0 && y == 0) {
         continue;
       }
 
@@ -93,3 +93,16 @@ std::vector<Cell> MazeSolver::GetNeighbors(const Cell& cell) {
 std::vector<Cell> MazeSolver::GetClosedCells() const {
   return closed_cells_;
 }
+
+bool MazeSolver::DoesContainCell(const std::vector<Cell>& cell_list,
+                                 const Cell& to_find) {
+  for (const Cell& cell : cell_list) {
+    if (cell.location == to_find.location) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
