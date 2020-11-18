@@ -22,13 +22,7 @@ void MazeSolver::UpdateSearchLoop() {
     return;
   }
 
-  Cell closest = open_cells_[0];
-  for (const Cell& cell : open_cells_) {
-    if (cell.f_cost <= closest.f_cost) {
-      closest = cell;
-    }
-  }
-  current_cell_ = closest;
+  current_cell_ = FindLowestFCost();
 
   // Remove from open cells
   for (size_t i = 0; i < open_cells_.size(); i++) {
@@ -55,19 +49,21 @@ void MazeSolver::UpdateSearchLoop() {
   }
 }
 
-bool MazeSolver::IsMazeSolved() {
-  return is_maze_solved_;
-}
-
-bool MazeSolver::IsMazeUnsolvable() {
-  return is_unsolvable_;
+Cell MazeSolver::FindLowestFCost() {
+  Cell closest = open_cells_[0];
+  for (const Cell& cell : open_cells_) {
+    if (cell.f_cost <= closest.f_cost) {
+      closest = cell;
+    }
+  }
+  return closest;
 }
 
 std::vector<Cell> MazeSolver::GetNeighbors(const Cell& cell) {
   std::vector<Cell> neighbors;
   for (float x = -1; x <= 1; x++) {
     for (float y = -1; y <= 1; y++) {
-      if (x == 0 && y == 0) {
+      if (abs(x) == abs(y)) { // No diagonals
         continue;
       }
 
@@ -90,10 +86,6 @@ std::vector<Cell> MazeSolver::GetNeighbors(const Cell& cell) {
   return neighbors;
 }
 
-std::vector<Cell> MazeSolver::GetClosedCells() const {
-  return closed_cells_;
-}
-
 bool MazeSolver::DoesContainCell(const std::vector<Cell>& cell_list,
                                  const Cell& to_find) {
   for (const Cell& cell : cell_list) {
@@ -103,6 +95,22 @@ bool MazeSolver::DoesContainCell(const std::vector<Cell>& cell_list,
   }
 
   return false;
+}
+
+bool MazeSolver::IsMazeSolved() {
+  return is_maze_solved_;
+}
+
+bool MazeSolver::IsMazeUnsolvable() {
+  return is_unsolvable_;
+}
+
+std::vector<Cell> MazeSolver::GetClosedCells() const {
+  return closed_cells_;
+}
+
+std::vector<Cell> MazeSolver::GetSolutionPath() const {
+  return solution_;
 }
 
 

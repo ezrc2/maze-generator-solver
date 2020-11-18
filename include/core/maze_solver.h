@@ -1,9 +1,10 @@
 #pragma once
 
 #include <vector>
+#include <glm/glm.hpp>
+#include <cmath>
 
 #include "cell.h"
-#include <glm/glm.hpp>
 
 class MazeSolver {
  public:
@@ -12,13 +13,17 @@ class MazeSolver {
 
   void UpdateSearchLoop();
 
+  std::vector<Cell> GetClosedCells() const;
+
+  std::vector<Cell> GetSolutionPath() const;
+
   bool IsMazeSolved();
 
   bool IsMazeUnsolvable();
 
-  std::vector<Cell> GetClosedCells() const;
-
  private:
+
+  Cell FindLowestFCost();
 
   std::vector<Cell> GetNeighbors(const Cell& cell);
 
@@ -32,6 +37,7 @@ class MazeSolver {
   std::vector<std::vector<size_t>> maze_cells_;
   std::vector<Cell> open_cells_;
   std::vector<Cell> closed_cells_;
+  std::vector<Cell> solution_;
 
   Cell current_cell_;
   glm::vec2 start_location_;
