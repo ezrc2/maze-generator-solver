@@ -65,6 +65,13 @@ class MazeSolver {
   std::vector<Cell*> GetNeighbors(const Cell& cell);
 
   /**
+   * Iterates through the closed cells backwards by calling each cell's previous
+   * cell, appending cells into the solution vector. Then, reverses the vector
+   * to become a forwards path
+   */
+  void TraceSolutionPath();
+
+  /**
    * Checks if the vector contains a cell
    *
    * @param cell_list The vector of cells

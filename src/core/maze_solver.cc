@@ -25,25 +25,14 @@ void MazeSolver::UpdateSearchLoop() {
 
   Cell* current = FindLowestFCost();
 
-  // Remove from open and move to closed
-  for (size_t i = 0; i < open_cells_.size(); i++) {
-    if (open_cells_[i]->location == current->location) {
-      open_cells_.erase(open_cells_.begin() + i);
-      break;
-    }
-  }
+  open_cells_.erase(std::remove(open_cells_.begin(),
+                                open_cells_.end(),
+                                current), open_cells_.end());
   closed_cells_.push_back(current);
 
   if (current->location == end_location_) {
     is_maze_solved_ = true;
-    if (solution_.empty()) {
-      Cell* cell = closed_cells_.back();
-      while (cell != nullptr) {
-        solution_.push_back(cell);
-        cell = cell->previous;
-      }
-      std::reverse(solution_.begin(), solution_.end());
-    }
+    TraceSolutionPath();
     return;
   }
 
@@ -54,8 +43,8 @@ void MazeSolver::UpdateSearchLoop() {
     }
     float new_cost = current->g_cost
         + glm::distance(current->location, neighbor->location);
-    if (new_cost < neighbor->g_cost || !DoesContainCell(open_cells_, *neighbor)) {
-      neighbor->f_cost = new_cost;
+    if (new_cost < neighbor->g_cost
+        || !DoesContainCell(open_cells_, *neighbor)) {
       neighbor->previous = current;
       if (!DoesContainCell(open_cells_, *neighbor)) {
         open_cells_.push_back(neighbor);
@@ -67,7 +56,7 @@ void MazeSolver::UpdateSearchLoop() {
 Cell* MazeSolver::FindLowestFCost() {
   Cell* closest = open_cells_[0];
   for (Cell* cell : open_cells_) {
-    if (cell->f_cost <= closest->f_cost) {
+    if (cell->f_cost <= closest->f_cost && cell->h_cost < closest->h_cost) {
       closest = cell;
     }
   }
@@ -101,6 +90,17 @@ std::vector<Cell*> MazeSolver::GetNeighbors(const Cell& cell) {
   return neighbors;
 }
 
+void MazeSolver::TraceSolutionPath() {
+  if (solution_.empty()) {
+    Cell* cell = closed_cells_.back();
+    while (cell != nullptr) {
+      solution_.push_back(cell);
+      cell = cell->previous;
+    }
+    std::reverse(solution_.begin(), solution_.end());
+  }
+}
+
 bool MazeSolver::DoesContainCell(const std::vector<Cell*>& cell_list,
                                  const Cell& to_find) {
   for (const Cell* cell : cell_list) {
@@ -127,5 +127,3 @@ std::vector<Cell*> MazeSolver::GetClosedCells() const {
 std::vector<Cell*> MazeSolver::GetSolutionPath() const {
   return solution_;
 }
-
-
