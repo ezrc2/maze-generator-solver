@@ -17,7 +17,13 @@ void MazeSolverApp::draw() {
                              kTextColor,
                              kFont);
   canvas_.DrawMaze(kMazeCells);
-  canvas_.DrawPath(maze_solver_.GetClosedCells());
+
+  if (maze_solver_.IsMazeSolved()) {
+    setFrameRate(40);
+    canvas_.DrawPath(maze_solver_.GetSolutionPath());
+  } else {
+    canvas_.DrawPath(maze_solver_.GetClosedCells());
+  }
 }
 
 void MazeSolverApp::update() {
