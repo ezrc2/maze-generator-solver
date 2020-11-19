@@ -27,7 +27,7 @@ class Canvas {
 
   void DrawMaze(const std::vector<std::vector<size_t>>& maze_cells);
 
-  void DrawPath(const std::vector<Cell>& path);
+  void DrawPath(const std::vector<Cell*>& path);
 
  private:
 

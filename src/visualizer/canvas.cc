@@ -25,10 +25,10 @@ void Canvas::DrawMaze(const std::vector<std::vector<size_t>>& maze_cells) {
   }
 }
 
-void Canvas::DrawPath(const std::vector<Cell>& path) {
+void Canvas::DrawPath(const std::vector<Cell*>& path) {
   ci::gl::color(kPathColor);
-  for (const Cell& cell : path) {
-    glm::vec2 top_left = top_left_corner_ + kCellSize * cell.location;
+  for (const Cell* cell : path) {
+    glm::vec2 top_left = top_left_corner_ + kCellSize * cell->location * glm::mat2x2(0, 1, 1, 0);
     glm::vec2 bottom_right = top_left + glm::vec2(kCellSize, kCellSize);
     ci::Rectf square(top_left, bottom_right);
     ci::gl::drawSolidRect(square);

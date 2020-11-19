@@ -9,11 +9,12 @@ MazeSolver::MazeSolver(const std::vector<std::vector<size_t>>& maze_cells,
   maze_height_ = maze_cells.size();
   maze_width_ = maze_cells[0].size();
 
-  current_cell_.location = start;
-  current_cell_.g_cost = 0;
-  current_cell_.h_cost = glm::distance(start, end);
-  current_cell_.f_cost = current_cell_.h_cost;
-  open_cells_.push_back(current_cell_);
+  Cell* start_cell = new Cell;
+  start_cell->location = start;
+  start_cell->g_cost = 0;
+  start_cell->h_cost = glm::distance(start, end);
+  start_cell->f_cost = start_cell->h_cost;
+  open_cells_.push_back(start_cell);
 }
 
 void MazeSolver::UpdateSearchLoop() {
@@ -22,62 +23,59 @@ void MazeSolver::UpdateSearchLoop() {
     return;
   }
 
-  current_cell_ = FindLowestFCost();
+  Cell* current = FindLowestFCost();
 
   // Remove from open and move to closed
   for (size_t i = 0; i < open_cells_.size(); i++) {
-    if (open_cells_[i].location == current_cell_.location) {
+    if (open_cells_[i]->location == current->location) {
       open_cells_.erase(open_cells_.begin() + i);
       break;
     }
   }
-  closed_cells_.push_back(current_cell_);
+  closed_cells_.push_back(current);
 
-  if (current_cell_.location == end_location_) {
+  if (current->location == end_location_) {
     is_maze_solved_ = true;
     if (solution_.empty()) {
-      Cell cell = closed_cells_.back();
-      while (cell.previous->location != start_location_) {
+      Cell* cell = closed_cells_.back();
+      while (cell != nullptr) {
         solution_.push_back(cell);
-        cell.location = cell.previous->location;
-        cell.g_cost = cell.previous->g_cost;
-        cell.h_cost = cell.previous->h_cost;
-        cell.f_cost = cell.previous->f_cost;
-        cell.previous = cell.previous->previous;
+        cell = cell->previous;
       }
+      std::reverse(solution_.begin(), solution_.end());
     }
     return;
   }
 
-  for (Cell& neighbor : GetNeighbors(current_cell_)) {
+  for (Cell* neighbor : GetNeighbors(*current)) {
     // If neighbor cell is already walked
-    if (DoesContainCell(closed_cells_, neighbor)) {
+    if (DoesContainCell(closed_cells_, *neighbor)) {
       continue;
     }
-    float new_cost = current_cell_.g_cost
-        + glm::distance(current_cell_.location, neighbor.location);
-    if (new_cost < neighbor.f_cost) {
-      neighbor.f_cost = new_cost;
-      neighbor.previous = &current_cell_;
-    }
-    if (!DoesContainCell(open_cells_, neighbor)) {
-      open_cells_.push_back(neighbor);
+    float new_cost = current->g_cost
+        + glm::distance(current->location, neighbor->location);
+    if (new_cost < neighbor->g_cost || !DoesContainCell(open_cells_, *neighbor)) {
+      neighbor->f_cost = new_cost;
+      neighbor->previous = current;
+      if (!DoesContainCell(open_cells_, *neighbor)) {
+        open_cells_.push_back(neighbor);
+      }
     }
   }
 }
 
-Cell MazeSolver::FindLowestFCost() {
-  Cell closest = open_cells_[0];
-  for (const Cell& cell : open_cells_) {
-    if (cell.f_cost <= closest.f_cost) {
+Cell* MazeSolver::FindLowestFCost() {
+  Cell* closest = open_cells_[0];
+  for (Cell* cell : open_cells_) {
+    if (cell->f_cost <= closest->f_cost) {
       closest = cell;
     }
   }
   return closest;
 }
 
-std::vector<Cell> MazeSolver::GetNeighbors(const Cell& cell) {
-  std::vector<Cell> neighbors;
+std::vector<Cell*> MazeSolver::GetNeighbors(const Cell& cell) {
+  std::vector<Cell*> neighbors;
   for (float x = -1; x <= 1; x++) {
     for (float y = -1; y <= 1; y++) {
       if (abs(x) == abs(y)) { // No diagonals
@@ -91,22 +89,22 @@ std::vector<Cell> MazeSolver::GetNeighbors(const Cell& cell) {
           && maze_cells_[static_cast<size_t>(row)][static_cast<size_t>(col)]
               == 1) {
 
-        Cell next;
-        next.location = glm::vec2(row, col);
-        next.g_cost = glm::distance(next.location, start_location_);
-        next.h_cost = glm::distance(next.location, end_location_);
-        next.f_cost = next.g_cost + next.h_cost;
-        neighbors.push_back(next);
+        Cell* neighbor = new Cell;
+        neighbor->location = glm::vec2(row, col);
+        neighbor->g_cost = glm::distance(neighbor->location, start_location_);
+        neighbor->h_cost = glm::distance(neighbor->location, end_location_);
+        neighbor->f_cost = neighbor->g_cost + neighbor->h_cost;
+        neighbors.push_back(neighbor);
       }
     }
   }
   return neighbors;
 }
 
-bool MazeSolver::DoesContainCell(const std::vector<Cell>& cell_list,
+bool MazeSolver::DoesContainCell(const std::vector<Cell*>& cell_list,
                                  const Cell& to_find) {
-  for (const Cell& cell : cell_list) {
-    if (cell.location == to_find.location) {
+  for (const Cell* cell : cell_list) {
+    if (cell->location == to_find.location) {
       return true;
     }
   }
@@ -122,11 +120,11 @@ bool MazeSolver::IsMazeUnsolvable() {
   return is_unsolvable_;
 }
 
-std::vector<Cell> MazeSolver::GetClosedCells() const {
+std::vector<Cell*> MazeSolver::GetClosedCells() const {
   return closed_cells_;
 }
 
-std::vector<Cell> MazeSolver::GetSolutionPath() const {
+std::vector<Cell*> MazeSolver::GetSolutionPath() const {
   return solution_;
 }
 

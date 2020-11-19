@@ -3,6 +3,7 @@
 #include <vector>
 #include <glm/glm.hpp>
 #include <cmath>
+#include <algorithm>
 
 #include "cell.h"
 
@@ -13,9 +14,9 @@ class MazeSolver {
 
   void UpdateSearchLoop();
 
-  std::vector<Cell> GetClosedCells() const;
+  std::vector<Cell*> GetClosedCells() const;
 
-  std::vector<Cell> GetSolutionPath() const;
+  std::vector<Cell*> GetSolutionPath() const;
 
   bool IsMazeSolved();
 
@@ -23,11 +24,11 @@ class MazeSolver {
 
  private:
 
-  Cell FindLowestFCost();
+  Cell* FindLowestFCost();
 
-  std::vector<Cell> GetNeighbors(const Cell& cell);
+  std::vector<Cell*> GetNeighbors(const Cell& cell);
 
-  bool DoesContainCell(const std::vector<Cell>& cell_list, const Cell& to_find);
+  bool DoesContainCell(const std::vector<Cell*>& cell_list, const Cell& to_find);
 
   bool is_maze_solved_ = false;
   bool is_unsolvable_ = false;
@@ -35,11 +36,10 @@ class MazeSolver {
   size_t maze_height_;
 
   std::vector<std::vector<size_t>> maze_cells_;
-  std::vector<Cell> open_cells_;
-  std::vector<Cell> closed_cells_;
-  std::vector<Cell> solution_;
+  std::vector<Cell*> open_cells_;
+  std::vector<Cell*> closed_cells_;
+  std::vector<Cell*> solution_;
 
-  Cell current_cell_;
   glm::vec2 start_location_;
   glm::vec2 end_location_;
 };
