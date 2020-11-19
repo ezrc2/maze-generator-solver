@@ -8,8 +8,7 @@ namespace mazesolver {
 namespace visualizer {
 
 /**
- * A canvas which will be displayed in the Cinder application and respond to
- * mouse events.
+ * A canvas which will be displayed in the Cinder application
  */
 class Canvas {
  public:
@@ -18,24 +17,29 @@ class Canvas {
    *
    * @param top_left_corner The screen coordinates of the top left corner of
    * the canvas
-   * @param canvas_width The width of the canvas, measured in screen pixels
-   * @param canvas_height The height of the canvas, measured in
-   * screen pixels
    */
-  Canvas(const glm::vec2& top_left_corner, size_t canvas_width,
-         size_t canvas_height);
+  Canvas(const glm::vec2& top_left_corner);
 
+  /**
+   * Draws a square for every cell of the maze. A white cell is walkable, while
+   * a black cell is an obstacle/wall
+   *
+   * @param maze_cells The maze, represented by 0s and 1s
+   */
   void DrawMaze(const std::vector<std::vector<size_t>>& maze_cells);
 
+  /**
+   * Draws a square for each cell in the path
+   *
+   * @param path The vector of cells
+   */
   void DrawPath(const std::vector<Cell*>& path);
 
  private:
 
   glm::vec2 top_left_corner_;
-  size_t canvas_width_;
-  size_t canvas_height_;
 
-  const float kCellSize = 50;
+  const float kCellSize = 25;
   const ci::Color kPathColor = ci::Color("blue");
   const ci::Color kBlankColor = ci::Color("white");
   const ci::Color kObstacleColor = ci::Color("black");

@@ -7,28 +7,72 @@
 
 #include "cell.h"
 
+/**
+ * Finds the solution path of a maze
+ */
 class MazeSolver {
  public:
+  /**
+   * Constructs a MazeSolver object and adds starting cell to vector of open
+   * cells
+   *
+   * @param maze_cells The maze, represented with 0s and 1s
+   * @param start The starting cell's location
+   * @param end The end cell's location
+   */
   MazeSolver(const std::vector<std::vector<size_t>>& maze_cells,
-       const glm::vec2& start, const glm::vec2& end);
+             const glm::vec2& start, const glm::vec2& end);
 
+  /**
+   * Updates the search loop once and checks if the maze is solved or unsolvable
+   */
   void UpdateSearchLoop();
 
-  std::vector<Cell*> GetClosedCells() const;
-
-  std::vector<Cell*> GetSolutionPath() const;
-
+  /**
+   * @return true if the maze is solved, otherwise false
+   */
   bool IsMazeSolved();
 
+  /**
+   * @return true if there is no solution the maze, otherwise false
+   */
   bool IsMazeUnsolvable();
+
+  /**
+   * @return The vector of closed cells
+   */
+  std::vector<Cell*> GetClosedCells() const;
+
+  /**
+   * @return The vector of cells for the solution to the maze
+   */
+  std::vector<Cell*> GetSolutionPath() const;
 
  private:
 
+  /**
+   * @return A pointer to the cell with the lowest f cost that hasn't been
+   * visited yet
+   */
   Cell* FindLowestFCost();
 
+  /**
+   * Finds the walkable cells that are adjacent to the input cell
+   *
+   * @param cell The input cell
+   * @return A vector of the neighbors to the cell
+   */
   std::vector<Cell*> GetNeighbors(const Cell& cell);
 
-  bool DoesContainCell(const std::vector<Cell*>& cell_list, const Cell& to_find);
+  /**
+   * Checks if the vector contains a cell
+   *
+   * @param cell_list The vector of cells
+   * @param to_find The cell to check
+   * @return true if the vector contains the target cell, otherwise false
+   */
+  bool DoesContainCell(const std::vector<Cell*>& cell_list,
+                       const Cell& to_find);
 
   bool is_maze_solved_ = false;
   bool is_unsolvable_ = false;
