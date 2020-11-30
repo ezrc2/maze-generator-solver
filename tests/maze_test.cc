@@ -15,6 +15,27 @@ const glm::vec2 kStartCell = {1, 0};
 const glm::vec2 kEndCell = {5, 6};
 const glm::vec2 kUnreachableCell = {5, 1};
 
+TEST_CASE("Maze is solvable") {
+  MazeSolver solver(kMazeCells, kStartCell, kEndCell);
+  while (!solver.IsMazeSolved() && !solver.IsMazeUnsolvable()) {
+    solver.UpdateSearchLoop();
+  }
+
+  REQUIRE(solver.IsMazeSolved());
+  REQUIRE_FALSE(solver.IsMazeUnsolvable());
+  REQUIRE(solver.GetSolutionPath().size() == 15);
+}
+
+TEST_CASE("Maze is unsolvable") {
+  MazeSolver solver(kMazeCells, kStartCell, kUnreachableCell);
+  while (!solver.IsMazeSolved() && !solver.IsMazeUnsolvable()) {
+    solver.UpdateSearchLoop();
+  }
+
+  REQUIRE(solver.IsMazeUnsolvable());
+  REQUIRE_FALSE(solver.IsMazeSolved());
+}
+
 TEST_CASE("Solution G costs") {
   std::vector<float> g_costs =
       {0.0f, 1.0f, 1.4142f, 2.23606f, 2.8284f, 3.60555f, 3.1623f, 3.0f, 4.0f,
