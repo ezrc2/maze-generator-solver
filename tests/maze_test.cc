@@ -8,11 +8,30 @@ const std::vector<std::vector<size_t>> kMazeCells =
      {0, 1, 0, 1, 0, 1, 0},
      {0, 1, 1, 1, 0, 1, 0},
      {0, 0, 0, 1, 0, 1, 0},
-     {0, 1, 1, 1, 0, 1, 1},
+     {0, 1, 0, 1, 0, 1, 1},
      {0, 0, 0, 0, 0, 0, 0}};
 
 const glm::vec2 kStartCell = {1, 0};
 const glm::vec2 kEndCell = {5, 6};
+const glm::vec2 kUnreachableCell = {5, 1};
+
+TEST_CASE("Solution G costs") {
+  std::vector<float> g_costs =
+      {0.0f, 1.0f, 1.4142f, 2.23606f, 2.8284f, 3.60555f, 3.1623f, 3.0f, 4.0f,
+       5.0f, 5.099f, 5.3852f, 5.831f, 6.4031f, 7.2111f};
+
+  MazeSolver solver(kMazeCells, kStartCell, kEndCell);
+  while (!solver.IsMazeSolved()) {
+    solver.UpdateSearchLoop();
+  }
+
+  std::vector<Cell*> solution = solver.GetSolutionPath();
+  REQUIRE(solution.size() == g_costs.size());
+
+  for (size_t i = 0; i < solution.size(); i++) {
+    REQUIRE(g_costs[i] == Approx(solution[i]->g_cost));
+  }
+}
 
 TEST_CASE("Solution F costs") {
   std::vector<float> f_costs =
