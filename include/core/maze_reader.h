@@ -24,8 +24,11 @@ class MazeReader {
  private:
 
   std::vector<std::vector<int>> maze_cells_;
-  glm::vec2 start_cell_;
-  glm::vec2 end_cell_;
+
+  glm::vec2 start_cell_ = glm::vec2(1, 0);
+  glm::vec2 end_cell_ = glm::vec2(19, 20);
+
+  const int kSpaceKeyCode = 32;
 
 };
 
