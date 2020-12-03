@@ -2,7 +2,7 @@
 
 namespace mazesolver {
 
-MazeReader::MazeReader() {
+void MazeReader::CaptureWebcamImage() {
   cv::VideoCapture camera(0);
   if (!camera.isOpened()) {
     throw std::exception("Cannot open camera");
@@ -17,15 +17,20 @@ MazeReader::MazeReader() {
       break;
     }
   }
+  maze_image_ = frame;
+}
 
-
-  cv::Mat image = cv::imread("images/20x20/maze1.png");
+void MazeReader::UploadImage(const std::string& image_path) {
+  cv::Mat image = cv::imread(image_path);
   if (!image.data) {
     throw std::exception("Empty image");
   }
+  maze_image_ = image;
+}
 
+void MazeReader::ConvertImage() {
   cv::Mat grayscale;
-  cv::cvtColor(image, grayscale, cv::COLOR_BGR2GRAY);
+  cv::cvtColor(maze_image_, grayscale, cv::COLOR_BGR2GRAY);
 
   cv::Mat binary(grayscale.size(), grayscale.type());
   cv::threshold(grayscale, binary, 100, 255, cv::THRESH_BINARY);
@@ -39,6 +44,7 @@ MazeReader::MazeReader() {
     }
     maze_cells_.push_back(row_cells);
   }
+  end_cell_ = glm::vec2(maze_cells_.size() - 2, maze_cells_[0].size() - 1);
 }
 
 std::vector<std::vector<int>> MazeReader::GetMazeCells() const {
