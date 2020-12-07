@@ -1,6 +1,8 @@
+#pragma once
+
 #include <catch2/catch.hpp>
 
-#include <core/maze_solver.h>
+#include "core/maze_solver.h"
 
 const std::vector<std::vector<int>> kMazeCells =
     {{0, 0, 0, 0, 0, 0, 0},
