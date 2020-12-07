@@ -62,7 +62,8 @@ list(APPEND SOURCE_FILES ${CORE_SOURCE_FILES}
         src/visualizer/maze_solver_app.cc
         src/visualizer/canvas.cc)
 
-list(APPEND TEST_FILES tests/maze_test.cc)
+list(APPEND TEST_FILES tests/solver_test.cc)
+list(APPEND TEST_FILES tests/reader_test.cc)
 
 ci_make_app(
         APP_NAME maze-solver-app
@@ -78,6 +79,7 @@ ci_make_app(
         SOURCES tests/test_main.cc ${SOURCE_FILES} ${TEST_FILES}
         INCLUDES include
         LIBRARIES catch2
+        LIBRARIES ${OpenCV_LIBS}
 )
 
 if (MSVC)
