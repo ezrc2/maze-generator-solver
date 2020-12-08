@@ -8,3 +8,19 @@ MazeGenerator::MazeGenerator(int height, int width) {
     cells_.push_back(row);
   }
 }
+
+std::vector<int> MazeGenerator::GetRandomDirections() {
+  std::vector<int> directions;
+  directions.reserve(4);
+  for (int i = 0; i < 4; i++) {
+    directions.push_back(i);
+  }
+  std::shuffle(directions.begin(), directions.end(), std::random_device());
+  return directions;
+}
+
+std::vector<std::vector<int>> MazeGenerator::GetMazeCells() {
+  return cells_;
+}
+
+
