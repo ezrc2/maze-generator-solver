@@ -34,6 +34,7 @@ class MazeSolverApp : public ci::app::App {
   int window_width_;
   const int kXMargin = 50;
   const int kYMargin = 50;
+  const float kCellSize = 10;
 
   MazeReader maze_reader_;
   MazeSolver maze_solver_;

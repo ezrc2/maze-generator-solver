@@ -5,9 +5,12 @@ namespace mazesolver {
 namespace visualizer {
 
 MazeSolverApp::MazeSolverApp()
-    : maze_reader_(), maze_solver_(), canvas_(glm::vec2(kXMargin, kYMargin)) {
+    : maze_reader_(),
+      maze_solver_(),
+      canvas_(glm::vec2(kXMargin, kYMargin), kCellSize) {
 
-  maze_reader_.UploadImage("images/20x20/maze1.png");
+  //maze_reader_.CaptureWebcamImage();
+  maze_reader_.UploadImage("images/40x40/maze1.png");
   maze_reader_.ConvertImage();
 
   maze_cells_ = maze_reader_.GetMazeCells();
@@ -15,8 +18,10 @@ MazeSolverApp::MazeSolverApp()
                           maze_reader_.GetStartCell(),
                           maze_reader_.GetEndCell());
 
-  window_width_ = static_cast<int>(maze_cells_.size()) * 10 + kXMargin * 2;
-  int window_height = static_cast<int>(maze_cells_.size()) * 10 + kYMargin * 2;
+  window_width_ =
+      static_cast<int>(maze_cells_.size() * kCellSize) + kXMargin * 2;
+  int window_height =
+      static_cast<int>(maze_cells_.size() * kCellSize) + kYMargin * 2;
   ci::app::setWindowSize(window_width_, window_height);
 }
 
