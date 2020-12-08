@@ -10,9 +10,13 @@ class MazeGenerator {
 
   MazeGenerator(int height, int width);
 
+  void GenerateMaze();
+
   std::vector<std::vector<int>> GetMazeCells();
 
  private:
+
+  void RandomDFS(int row, int col);
 
   std::vector<int> GetRandomDirections();
 
