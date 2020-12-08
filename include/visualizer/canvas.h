@@ -17,8 +17,9 @@ class Canvas {
    *
    * @param top_left_corner The screen coordinates of the top left corner of
    * the canvas
+   * @param cell_size The size of each cell, in pixels
    */
-  Canvas(const glm::vec2& top_left_corner);
+  Canvas(const glm::vec2& top_left_corner, float cell_size);
 
   /**
    * Draws a square for every cell of the maze. A white cell is walkable, while
@@ -26,7 +27,7 @@ class Canvas {
    *
    * @param maze_cells The maze, represented by 0s and 1s
    */
-  void DrawMaze(const std::vector<std::vector<size_t>>& maze_cells);
+  void DrawMaze(const std::vector<std::vector<int>>& maze_cells);
 
   /**
    * Draws a square for each cell in the path
@@ -38,8 +39,7 @@ class Canvas {
  private:
 
   glm::vec2 top_left_corner_;
-
-  const float kCellSize = 25;
+  float cell_size_;
   const ci::Color kPathColor = ci::Color("blue");
   const ci::Color kBlankColor = ci::Color("white");
   const ci::Color kObstacleColor = ci::Color("black");
