@@ -10,14 +10,15 @@ void MazeReader::CaptureWebcamImage() {
 
   cv::Mat frame;
   while (camera.read(frame)) {
-    cv::flip(frame, frame, 1);
+    cv::putText(frame, "Press space key to capture", cv::Point(5, 20),
+                cv::FONT_HERSHEY_PLAIN, 1.0, kGreen);
     cv::imshow("Camera", frame);
+
     if (cv::waitKey(1) == kSpaceKeyCode) {
-      camera >> frame;
+      maze_image_ = frame;
       break;
     }
   }
-  maze_image_ = frame;
 }
 
 void MazeReader::UploadImage(const std::string& image_path) {

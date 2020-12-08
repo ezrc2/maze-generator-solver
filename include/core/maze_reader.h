@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <opencv2/opencv.hpp>
+#include <opencv2/ximgproc.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
@@ -58,6 +59,7 @@ class MazeReader {
   glm::vec2 end_cell_;
 
   const int kSpaceKeyCode = 32;
+  const cv::Scalar kGreen = cv::Scalar(0, 255, 0);
 
 };
 
