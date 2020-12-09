@@ -4,7 +4,7 @@ using mazesolver::visualizer::MazeSolverApp;
 
 void prepareSettings(MazeSolverApp::Settings* settings) {
   settings->setResizable(false);
-  settings->setWindowPos(200, 50);
+  settings->setWindowPos(500, 100);
   srand(static_cast<unsigned int>(time(nullptr)));
 }
 

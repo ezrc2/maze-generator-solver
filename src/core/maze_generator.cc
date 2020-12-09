@@ -14,8 +14,6 @@ MazeGenerator::MazeGenerator(int height, int width) {
 }
 
 void MazeGenerator::GenerateMaze() {
-  srand(static_cast<unsigned int>(time(nullptr)));
-
   int row = rand() % height_;
   while (row % 2 == 0) {
     row = rand() % height_;

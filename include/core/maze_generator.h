@@ -4,7 +4,6 @@
 #include <random>
 #include <algorithm>
 #include <glm/vec2.hpp>
-#include <ctime>
 
 /**
  * Generates a maze using randomized depth-first search
