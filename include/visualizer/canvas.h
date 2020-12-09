@@ -30,19 +30,30 @@ class Canvas {
   void DrawMaze(const std::vector<std::vector<int>>& maze_cells);
 
   /**
-   * Draws a square for each cell in the path
+   * Draws a square for each cell in the solution path
    *
    * @param path The vector of cells
    */
-  void DrawPath(const std::vector<Cell*>& path);
+  void DrawSolverPath(const std::vector<Cell*>& path);
+
+  /**
+   * Shows how the maze is generated
+   *
+   * @param path The path of the generating process
+   * @param count The number of cells in the path to draw
+   * @param height The height of the maze
+   * @param width The width of the maze
+   */
+  void DrawGeneratorPath(const std::vector<glm::vec2>& path, size_t count,
+                         size_t height, size_t width);
 
  private:
 
   glm::vec2 top_left_corner_;
   float cell_size_;
-  const ci::Color kPathColor = ci::Color("blue");
-  const ci::Color kBlankColor = ci::Color("white");
-  const ci::Color kObstacleColor = ci::Color("black");
+  const ci::Color kSearchColor = ci::Color("blue");
+  const ci::Color kPathColor = ci::Color("white");
+  const ci::Color kWallColor = ci::Color("black");
 
 };
 
