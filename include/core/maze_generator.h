@@ -26,6 +26,11 @@ class MazeGenerator {
   void GenerateMaze();
 
   /**
+   * @return The path of the generator
+   */
+  std::vector<glm::vec2> GetGeneratorPath();
+
+  /**
    * @return The 2D vector representing the maze
    */
   std::vector<std::vector<int>> GetMazeCells();
@@ -39,6 +44,16 @@ class MazeGenerator {
    * @return The coordinates of the end cell
    */
   glm::vec2 GetEndCell() const;
+
+  /**
+   * @return The height of the maze
+   */
+  int GetMazeHeight() const;
+
+  /**
+   * @return The width of the maze
+   */
+  int GetMazeWidth() const;
 
  private:
 
@@ -64,6 +79,7 @@ class MazeGenerator {
   glm::vec2 end_cell_;
 
   std::vector<std::vector<int>> cells_;
+  std::vector<glm::vec2> path_;
   int height_;
   int width_;
 
