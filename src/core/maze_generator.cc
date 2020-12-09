@@ -1,6 +1,7 @@
 #include "core/maze_generator.h"
 
 MazeGenerator::MazeGenerator(int height, int width) {
+  // Dimensions need to be odd
   height_ = height % 2 == 0 ? height + 1 : height;
   width_ = width % 2 == 0 ? width + 1 : width;
 
@@ -24,7 +25,7 @@ void MazeGenerator::GenerateMaze() {
     col = rand() % width_;
   }
 
-  // Starting location for generator
+  // Starting row and column for generator
   cells_[row][col] = kPath;
   path_.emplace_back(row, col);
 
@@ -41,6 +42,7 @@ void MazeGenerator::GenerateMaze() {
 void MazeGenerator::RandomDFS(int row, int col) {
   std::vector<int> directions = GetRandomDirections();
   for (int direction : directions) {
+    // Move 2 spaces at a time and remove wall between cells
     switch (direction) {
       case 0: // Up
         if (row - 2 > 0 && cells_[row - 2][col] == kWall) {
