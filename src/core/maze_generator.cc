@@ -24,10 +24,18 @@ void MazeGenerator::GenerateMaze() {
     col = rand() % width_;
   }
 
+  // Starting location for generator
   cells_[row][col] = kPath;
   path_.emplace_back(row, col);
 
   RandomDFS(row, col);
+
+  // Mark exit as a path
+  cells_[height_ - 2][width_ - 1] = kPath;
+
+  // Add start and end cells to path
+  path_.emplace_back(kStartCell.x, kStartCell.y);
+  path_.emplace_back(height_ - 2, width_ - 1);
 }
 
 void MazeGenerator::RandomDFS(int row, int col) {
@@ -80,9 +88,6 @@ void MazeGenerator::RandomDFS(int row, int col) {
         break;
     }
   }
-  // Mark exit as a path
-  cells_[height_ - 2][width_ - 1] = kPath;
-  path_.emplace_back(height_ - 2, width_ - 1);
 }
 
 std::vector<int> MazeGenerator::GetRandomDirections() {
