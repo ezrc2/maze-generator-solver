@@ -3,13 +3,26 @@
 MazeGenerator::MazeGenerator(int height, int width) {
   height_ = height;
   width_ = width;
+
+  // Dimensions need to be odd for border walls
+  if (height_ % 2 == 0) {
+    height_++;
+  }
+  if (width_ % 2 == 0) {
+    width_++;
+  }
+
   for (int i = 0; i < height; i++) {
     std::vector<int> row(width, kWall);
     cells_.push_back(row);
   }
+
+  // Exit is bottom right corner
+  end_cell_ = glm::vec2(height_ - 2, width_ - 1);
 }
 
 void MazeGenerator::GenerateMaze() {
+  srand(static_cast<unsigned int>(time(nullptr)));
   int row = rand() % height_;
   int col = rand() % width_;
   while (row % 2 == 0) {
@@ -57,7 +70,7 @@ void MazeGenerator::RandomDFS(int row, int col) {
         break;
     }
   }
-  // Exit is bottom right corner
+  // Mark exit as a path
   cells_[height_ - 2][width_ - 1] = kPath;
 }
 
@@ -73,6 +86,14 @@ std::vector<int> MazeGenerator::GetRandomDirections() {
 
 std::vector<std::vector<int>> MazeGenerator::GetMazeCells() {
   return cells_;
+}
+
+glm::vec2 MazeGenerator::GetStartCell() const {
+  return kStartCell;
+}
+
+glm::vec2 MazeGenerator::GetEndCell() const {
+  return end_cell_;
 }
 
 

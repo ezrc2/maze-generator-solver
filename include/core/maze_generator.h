@@ -3,6 +3,8 @@
 #include <vector>
 #include <random>
 #include <algorithm>
+#include <glm/vec2.hpp>
+#include <ctime>
 
 /**
  * Generates a maze using randomized depth-first search
@@ -28,6 +30,16 @@ class MazeGenerator {
    */
   std::vector<std::vector<int>> GetMazeCells();
 
+  /**
+   * @return The coordinates of the starting cell
+   */
+  glm::vec2 GetStartCell() const;
+
+  /**
+   * @return The coordinates of the end cell
+   */
+  glm::vec2 GetEndCell() const;
+
  private:
 
   /**
@@ -48,6 +60,8 @@ class MazeGenerator {
 
   const int kPath = 1;
   const int kWall = 0;
+  const glm::vec2 kStartCell = glm::vec2(1, 0);
+  glm::vec2 end_cell_;
 
   std::vector<std::vector<int>> cells_;
   int height_;
