@@ -2,10 +2,6 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 set(CMAKE_CXX_STANDARD 11)
 project(maze-solver)
 
-set("OpenCV_DIR" "C:/Users/ezche/Downloads/build")
-find_package(OpenCV REQUIRED)
-include_directories(${OpenCV_INCLUDE_DIRS})
-
 # This tells the compiler to not aggressively optimize and
 # to include debugging information so that the debugger
 # can properly read what's going on.
@@ -53,8 +49,6 @@ get_filename_component(APP_PATH "${CMAKE_CURRENT_SOURCE_DIR}/" ABSOLUTE)
 
 include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
-list(APPEND CORE_SOURCE_FILES src/core/maze_reader.cc)
-list(APPEND CORE_SOURCE_FILES include/core/maze_reader.h)
 list(APPEND CORE_SOURCE_FILES src/core/maze_solver.cc)
 list(APPEND CORE_SOURCE_FILES include/core/maze_solver.h)
 list(APPEND CORE_SOURCE_FILES src/core/maze_generator.cc)
@@ -73,7 +67,6 @@ ci_make_app(
         CINDER_PATH ${CINDER_PATH}
         SOURCES apps/cinder_app_main.cc ${SOURCE_FILES}
         INCLUDES include
-        LIBRARIES ${OpenCV_LIBS}
 )
 
 ci_make_app(
@@ -82,7 +75,6 @@ ci_make_app(
         SOURCES tests/test_main.cc ${SOURCE_FILES} ${TEST_FILES}
         INCLUDES include
         LIBRARIES catch2
-        LIBRARIES ${OpenCV_LIBS}
 )
 
 if (MSVC)

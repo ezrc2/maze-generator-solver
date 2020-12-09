@@ -6,7 +6,6 @@
 #include "cinder/app/AppBase.h"
 #include "canvas.h"
 #include "core/maze_solver.h"
-#include "core/maze_reader.h"
 #include "core/maze_generator.h"
 
 namespace mazesolver {
