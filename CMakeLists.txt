@@ -54,8 +54,11 @@ get_filename_component(APP_PATH "${CMAKE_CURRENT_SOURCE_DIR}/" ABSOLUTE)
 include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
 list(APPEND CORE_SOURCE_FILES src/core/maze_reader.cc)
+list(APPEND CORE_SOURCE_FILES include/core/maze_reader.h)
 list(APPEND CORE_SOURCE_FILES src/core/maze_solver.cc)
 list(APPEND CORE_SOURCE_FILES include/core/maze_solver.h)
+list(APPEND CORE_SOURCE_FILES src/core/maze_generator.cc)
+list(APPEND CORE_SOURCE_FILES include/core/maze_generator.h)
 list(APPEND CORE_SOURCE_FILES include/core/cell.h)
 
 list(APPEND SOURCE_FILES ${CORE_SOURCE_FILES}
@@ -63,7 +66,7 @@ list(APPEND SOURCE_FILES ${CORE_SOURCE_FILES}
         src/visualizer/canvas.cc)
 
 list(APPEND TEST_FILES tests/solver_test.cc)
-list(APPEND TEST_FILES tests/reader_test.cc)
+list(APPEND TEST_FILES tests/generator_test.cc)
 
 ci_make_app(
         APP_NAME maze-solver-app
