@@ -12,16 +12,17 @@
  */
 class MazeSolver {
  public:
+
   /**
-   * Constructs a MazeSolver object and adds starting cell to vector of open
-   * cells
+   * Initializes a MazeSolver object and adds the starting cell to vector of
+   * open cells
    *
    * @param maze_cells The maze, represented with 0s and 1s
    * @param start The starting cell's location
    * @param end The end cell's location
    */
-  MazeSolver(const std::vector<std::vector<size_t>>& maze_cells,
-             const glm::vec2& start, const glm::vec2& end);
+  void Initialize(const std::vector<std::vector<int>>& maze_cells,
+                  const glm::vec2& start, const glm::vec2& end);
 
   /**
    * Updates the search loop once and checks if the maze is solved or unsolvable
@@ -86,7 +87,7 @@ class MazeSolver {
   size_t maze_width_;
   size_t maze_height_;
 
-  std::vector<std::vector<size_t>> maze_cells_;
+  std::vector<std::vector<int>> maze_cells_;
   std::vector<Cell*> open_cells_;
   std::vector<Cell*> closed_cells_;
   std::vector<Cell*> solution_;

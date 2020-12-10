@@ -1,8 +1,8 @@
 #include <iostream>
 #include "core/maze_solver.h"
 
-MazeSolver::MazeSolver(const std::vector<std::vector<size_t>>& maze_cells,
-                       const glm::vec2& start, const glm::vec2& end) {
+void MazeSolver::Initialize(const std::vector<std::vector<int>>& maze_cells,
+                            const glm::vec2& start, const glm::vec2& end) {
   maze_cells_ = maze_cells;
   start_location_ = start;
   end_location_ = end;
@@ -75,7 +75,7 @@ std::vector<Cell*> MazeSolver::GetNeighbors(const Cell& cell) {
       float col = y + cell.location.y;
 
       if (row >= 0 && row < maze_height_ && col >= 0 && col < maze_width_
-          && maze_cells_[static_cast<size_t>(row)][static_cast<size_t>(col)]
+          && maze_cells_[static_cast<int>(row)][static_cast<int>(col)]
               == 1) {
 
         Cell* neighbor = new Cell;
