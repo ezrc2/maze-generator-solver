@@ -4,11 +4,11 @@ Uses a recursive implementation of randomized depth-first search to generate and
 
 <img src="https://github.com/uiuc-fa20-cs126/final-project-ezrc2/blob/week3/maze-demo.gif" width="500" height="500" />
 
-**Installation**
+## Installation
 
-You will need to install [CLion](https://www.jetbrains.com/clion/download/#section=windows). For Windows, you will also need to install [MS Build Tools](https://my.visualstudio.com/Downloads?q=visual%20studio%202015&wt.mc_id=o~msft~vscom~older-downloads) (Visual Studio Community 2015 Update 3) with Common Tools for Visual C++ 2015. In CLion, go to Settings > Build, Execution, Deployment > Toolchains and select Visual Studio 14.0 as the environment.
+For Windows, you will  need to install [MS Build Tools](https://my.visualstudio.com/Downloads?q=visual%20studio%202015&wt.mc_id=o~msft~vscom~older-downloads) (Visual Studio Community 2015 Update 3) with Common Tools for Visual C++ 2015. If using [CLion](https://www.jetbrains.com/clion/download/#section=windows), go to Settings > Build, Execution, Deployment > Toolchains and select Visual Studio 14.0 as the environment.
 
-**Libraries**
+## Libraries
 
 [Cinder (v0.9.2)](https://libcinder.org/download)
 
@@ -16,11 +16,11 @@ You will need to install [CLion](https://www.jetbrains.com/clion/download/#secti
 
 Make sure to build Cinder before using it (only needs to be done once).
 
-**How to Use**
+## How to Use
 
 Run the program to show the maze generation and solving process. You can edit the height and width parameters in the maze_solver_app header file.
 
-**References**
+## References
 
 [A* Search Algorithm](https://www.geeksforgeeks.org/a-search-algorithm/)
 
