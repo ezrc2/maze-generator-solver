@@ -8,17 +8,17 @@ If I were to finish the project early, one stretch goal I would implement is a m
 
 **Timeline**
 
-Week 1: 
+Week 1:
 
-- Create/gather a dataset of mazes to test the solving algorithm
-- Set up OpenCV to recognize a maze and translate it into a matrix
+- Integrate A* algorithm to solve a maze
+- Set up OpenCV on machine
 
-Week 2: 
+Week 2:
 
-- Develop search algorithm, probably A* or greedy, to solve the maze
-- Draw the solution over the maze with OpenCV
+- Test the solver thoroughly
+- Use DFS to generate a maze for the solver to solve
 
-Week 3: 
+Week 3:
 
-- Test the maze solver thoroughly
-- Implement stretch goals if I have extra time
+- Test the generator thoroughly
+- Implement OpenCV if I have extra time
