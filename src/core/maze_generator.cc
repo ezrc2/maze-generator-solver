@@ -31,10 +31,13 @@ void MazeGenerator::GenerateMaze() {
 
   RandomDFS(row, col);
 
-  // Mark exit as a path
+  // Mark start and exit as a path
+  int start_row = static_cast<int>(kStartCell.x);
+  int start_col = static_cast<int>(kStartCell.y);
+  cells_[start_row][start_col] = kPath;
   cells_[height_ - 2][width_ - 1] = kPath;
 
-  // Add start and end cells to path
+  // Add start and exit to path
   path_.emplace_back(kStartCell.x, kStartCell.y);
   path_.emplace_back(height_ - 2, width_ - 1);
 }
