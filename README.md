@@ -6,9 +6,9 @@ Uses a recursive implementation of randomized depth-first search to generate and
 
 **Installation**
 
-For Windows, you will need to install [CLion](https://www.jetbrains.com/clion/download/#section=windows) and [MS Build Tools](https://my.visualstudio.com/Downloads?q=visual%20studio%202015&wt.mc_id=o~msft~vscom~older-downloads) (Visual Studio Community 2015 Update 3) with Common Tools for Visual C++ 2015. In CLion, go to Settings > Build, Execution, Deployment > Toolchains and select Visual Studio 14.0 as the environment.
+You will need to install [CLion](https://www.jetbrains.com/clion/download/#section=windows). For Windows, you will also need to install [MS Build Tools](https://my.visualstudio.com/Downloads?q=visual%20studio%202015&wt.mc_id=o~msft~vscom~older-downloads) (Visual Studio Community 2015 Update 3) with Common Tools for Visual C++ 2015. In CLion, go to Settings > Build, Execution, Deployment > Toolchains and select Visual Studio 14.0 as the environment.
 
-**Libraries:**
+**Libraries**
 
 [Cinder (v0.9.2)](https://libcinder.org/download)
 
@@ -24,4 +24,4 @@ Run the program to show the maze generation and solving process. You can edit th
 
 [A* Search Algorithm](https://www.geeksforgeeks.org/a-search-algorithm/)
 
-[Maze Generation](https://en.wikipedia.org/wiki/Maze_generation_algorithm)
+[Maze Generation Algorithms](https://en.wikipedia.org/wiki/Maze_generation_algorithm)
