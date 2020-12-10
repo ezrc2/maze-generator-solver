@@ -3,6 +3,7 @@
 #include <catch2/catch.hpp>
 
 #include "core/maze_generator.h"
+#include "core/maze_solver.h"
 
 TEST_CASE("Dimensions are odd") {
   MazeGenerator generator(20, 18);
@@ -43,4 +44,22 @@ TEST_CASE("Borders are walls") {
     }
     REQUIRE(cells[i][cells.size() - 1] == 0);
   }
+}
+
+TEST_CASE("Generated maze is solvable") {
+  int height = rand() % 30;
+  int width = rand() % 30;
+  MazeGenerator generator(height, width);
+  generator.GenerateMaze();
+
+  MazeSolver solver;
+  solver.Initialize(generator.GetMazeCells(), generator.GetStartCell(),
+                    generator.GetEndCell());
+
+  while (!solver.IsMazeSolved() && !solver.IsMazeUnsolvable()) {
+    solver.UpdateSearchLoop();
+  }
+
+  REQUIRE(solver.IsMazeSolved());
+  REQUIRE_FALSE(solver.IsMazeUnsolvable());
 }
