@@ -1,8 +1,10 @@
+#pragma once
+
 #include <catch2/catch.hpp>
 
-#include <core/driver.h>
+#include "core/maze_solver.h"
 
-const std::vector<std::vector<size_t>> kMazeCells =
+const std::vector<std::vector<int>> kMazeCells =
     {{0, 0, 0, 0, 0, 0, 0},
      {1, 1, 0, 1, 1, 1, 0},
      {0, 1, 0, 1, 0, 1, 0},
@@ -16,7 +18,8 @@ const glm::vec2 kEndCell = {5, 6};
 const glm::vec2 kUnreachableCell = {5, 1};
 
 TEST_CASE("Maze is solvable") {
-  MazeSolver solver(kMazeCells, kStartCell, kEndCell);
+  MazeSolver solver;
+  solver.Initialize(kMazeCells, kStartCell, kEndCell);
   while (!solver.IsMazeSolved() && !solver.IsMazeUnsolvable()) {
     solver.UpdateSearchLoop();
   }
@@ -27,7 +30,8 @@ TEST_CASE("Maze is solvable") {
 }
 
 TEST_CASE("Maze is unsolvable") {
-  MazeSolver solver(kMazeCells, kStartCell, kUnreachableCell);
+  MazeSolver solver;
+  solver.Initialize(kMazeCells, kStartCell, kUnreachableCell);
   while (!solver.IsMazeSolved() && !solver.IsMazeUnsolvable()) {
     solver.UpdateSearchLoop();
   }
@@ -41,7 +45,8 @@ TEST_CASE("Solution G costs") {
       {0.0f, 1.0f, 1.4142f, 2.23606f, 2.8284f, 3.60555f, 3.1623f, 3.0f, 4.0f,
        5.0f, 5.099f, 5.3852f, 5.831f, 6.4031f, 7.2111f};
 
-  MazeSolver solver(kMazeCells, kStartCell, kEndCell);
+  MazeSolver solver;
+  solver.Initialize(kMazeCells, kStartCell, kEndCell);
   while (!solver.IsMazeSolved()) {
     solver.UpdateSearchLoop();
   }
@@ -59,7 +64,8 @@ TEST_CASE("Solution H costs") {
       {7.2111f, 6.4031f, 5.831f, 5.3852f, 4.4721f, 3.60555f, 4.2426f, 5.0f,
        4.4721f, 4.1231f, 3.1623f, 2.23607f, 1.4142f, 1.0f, 0.0f};
 
-  MazeSolver solver(kMazeCells, kStartCell, kEndCell);
+  MazeSolver solver;
+  solver.Initialize(kMazeCells, kStartCell, kEndCell);
   while (!solver.IsMazeSolved()) {
     solver.UpdateSearchLoop();
   }
@@ -77,7 +83,8 @@ TEST_CASE("Solution F costs") {
       {7.2111f, 7.4031f, 7.2452f, 7.6212f, 7.3006f, 7.2111f, 7.4049f, 8.0f,
        8.4721f, 9.1231f, 8.2613f, 7.6212f, 7.2452f, 7.4031f, 7.2111f};
 
-  MazeSolver solver(kMazeCells, kStartCell, kEndCell);
+  MazeSolver solver;
+  solver.Initialize(kMazeCells, kStartCell, kEndCell);
   while (!solver.IsMazeSolved()) {
     solver.UpdateSearchLoop();
   }
