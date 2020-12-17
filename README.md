@@ -14,11 +14,17 @@ For Windows, you will  need to install [MS Build Tools](https://my.visualstudio.
 
 [Catch2](https://github.com/catchorg/Catch2)
 
-Make sure to build Cinder before using it (only needs to be done once).
+**Setup**
+
+1. Open the ~/Cinder folder in your IDE and run the program to build it (only needs to be done once). 
+
+2. Create a folder called "my-projects" in the ~/Cinder folder.
+
+3. Download this repository into "my-projects" and open the program.
 
 ## How to Use
 
-Run the program to show the maze generation and solving process. You can edit the height and width parameters in the maze_solver_app header file.
+Run the program to show the maze generation and solving process. You can adjust the height and width parameters in the maze_solver_app header file.
 
 ## References
 
