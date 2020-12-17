@@ -2,7 +2,7 @@
 
 Uses a recursive implementation of randomized depth-first search to generate and A* search algorithm to solve.
 
-<img src="https://github.com/uiuc-fa20-cs126/final-project-ezrc2/blob/main/maze-demo.gif" width="500" height="500" />
+<img src="https://github.com/ezrc2/maze-generator-solver/blob/main/maze-demo.gif" width="500" height="500" />
 
 ## Installation
 
